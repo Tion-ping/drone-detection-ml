@@ -3,6 +3,7 @@ __pycache__/
 .venv/
 venv/
 .env
+*.egg-info/
 detected.jpg
 samples_annotated/
 *.mp4
