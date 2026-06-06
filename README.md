@@ -24,6 +24,8 @@ camera frame ──► DroneDetector (YOLOv8 ONNX) ──► detections (pixel b
 
 This repo is the **brain**: pure perception + geometry. It opens no cameras and
 talks to no network — `system1-detection-agent` imports it and does the I/O.
+Unity cameras and real cameras are both RTSP streams, so **this model runs on
+every camera** — including the Unity demo.
 
 ---
 
@@ -81,8 +83,8 @@ for d in det.detect(frame):                 # frame = BGR numpy array
     # bearing is the [E, N, U] unit vector to POST to System 2 as "bearing_vector"
 ```
 
-For the Unity/sim path use `sim_bearing(center_px, K, rot_q)` instead — see
-[`ARCHITECTURE.md` §4](ARCHITECTURE.md).
+The `azimuth/elevation/hfov/vfov` come from the camera's entry in System 1's
+`cameras.yaml`. See [`ARCHITECTURE.md` §4](ARCHITECTURE.md) for the math and conventions.
 
 ---
 
@@ -105,7 +107,7 @@ The bearing geometry is the highest-risk code (a wrong bearing = wrong GPS with 
 error). It is pinned by unit tests:
 
 ```bash
-python tests/test_geometry.py      # 14 invariants, no pytest needed
+python tests/test_geometry.py      # 7 invariants, no pytest needed
 # or: pytest tests/
 ```
 
