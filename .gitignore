@@ -6,4 +6,7 @@ venv/
 detected.jpg
 samples_annotated/
 *.mp4
-# keep the bundled model + sample images tracked
+# keep the bundled nano model tracked; ignore downloaded/exported large models
+*.pt
+models/*.onnx
+!models/yolov8n-drone.onnx
