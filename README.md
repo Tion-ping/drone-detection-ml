@@ -31,7 +31,32 @@ every camera** — including the Unity demo.
 
 ## The model
 
-`models/yolov8n-drone.onnx` — YOLOv8n fine-tuned for drones, ONNX with NMS baked in.
+Two models are available:
+
+### Fine-tuned YOLOv11x (recommended)
+
+Trained on 17,351 images from two public datasets (Zhejiang University + DetFly).
+Weights on HuggingFace: **[FilippTrigub/yolov11x-drone-finetuned](https://huggingface.co/FilippTrigub/yolov11x-drone-finetuned)**
+
+```python
+from huggingface_hub import hf_hub_download
+pt_path = hf_hub_download("FilippTrigub/yolov11x-drone-finetuned", "weights/best.pt")
+```
+
+| | |
+|---|---|
+| Input | 640×640 RGB |
+| Classes | `{0: drone}` |
+| Precision | 0.775 |
+| Recall | 0.606 |
+| mAP@0.5 | 0.555 |
+| mAP@0.5:0.95 | 0.279 |
+
+Evaluated on 2,320 images (Zhejiang + DetFly val sets combined). See [`BENCHMARKS.md`](BENCHMARKS.md) for full comparison.
+
+### Baseline YOLOv8n (bundled)
+
+`models/yolov8n-drone.onnx` — lighter, faster, less accurate.
 
 | | |
 |---|---|
